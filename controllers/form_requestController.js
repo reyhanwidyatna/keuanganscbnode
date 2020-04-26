@@ -62,6 +62,35 @@ module.exports.findAllForm = async function(req, res){
     }
 };
 
+module.exports.findOneForm = async function(req, res){
+    try {
+        const usersId = req.params.id;
+        const form = await model.form_requests.findOne({
+            where: { id: usersId }
+        });
+        if (form.length !== 0) {
+            res.json({
+                'status': 'OK',
+                'messages': '',
+                'data': form
+            })
+          } else { 
+            res.json({
+                'status': 'ERROR',
+                'messages': 'EMPTY',
+                'data': {}
+            })
+          }
+    } catch (err) {
+        res.json({
+            'status': 'ERROR',
+            'messages': err.messages,
+            'data': {}
+        })
+    }
+};
+
+
 module.exports.updateForm = async function(req, res) {
     try {
         const usersId = req.params.id;
