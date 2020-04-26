@@ -1,13 +1,20 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const routes = require('./routers/formrequestrouter')
+const logger = require('morgan')
+const routes = require('./routes/route')
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT || 8000
+
+
+app.use(logger('dev'));
 
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 routes(app)
+
 
 app.listen(PORT, function(){
     console.log("This server is listening to PORT:", PORT);
